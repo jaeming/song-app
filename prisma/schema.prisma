@@ -16,5 +16,18 @@ model Post {
   updatedAt DateTime @updatedAt
   title     String
   content   String
-  slug      String
+  slug      String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  firstName String?
+  lastName  String?
+  email     String   @unique
+  password  String
+  posts     Post[]
 }
